@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title}}</title>
+</head>
+<body>
+<h1>{{ .Description}}</h1>
+<ul>
+    {{range .Users}}
+        {{if .Visible}}
+            <li>
+                <div><b>{{ .Name }}</b>: {{ .Age }}</div>
+            </li>
+        {{end}}
+    {{end}}
+</ul>
+</body>
+</html>
