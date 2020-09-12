@@ -14,6 +14,19 @@ let newsData = [
     }
 ];
 
+let Article = React.createClass({
+    render: function() {
+        let author = this.props.attributes.author,
+            text = this.props.attributes.text;
+        return (
+            <div className="article">
+                <p className="news__author">{author}</p>
+                <p className="news__text">{text}</p>
+            </div>
+        )
+    }
+});
+
 let News = React.createClass({
     render: function() {
         let latestNews = this.props.latestNews;
@@ -24,8 +37,7 @@ let News = React.createClass({
             newsTemplate = latestNews.map( function(item, index) {
                 return (
                     <div key={index}>
-                        <p className="news__author">{item.author}:</p>
-                        <p className="news__text">{item.text}</p>
+                        <Article attributes={item} />
                     </div>
                 )
             })
@@ -34,7 +46,7 @@ let News = React.createClass({
         return (
             <div className="news">
                 {newsTemplate}
-                <strong className={ needShowNews ? '': 'none' }>All news: {latestNews.length}</strong>
+                <strong className={'news__count ' + (needShowNews ? '': 'none') }>All news: {latestNews.length}</strong>
             </div>
         );
     }
@@ -55,8 +67,9 @@ let App = React.createClass({
         return (
             <div className="app">
                 <p>This page demonstrates using React with no build tooling.</p>
+                <p/>
+                <h3>News:</h3>
                 <News latestNews={newsData}/>
-                <Comments />
             </div>
         );
     }
