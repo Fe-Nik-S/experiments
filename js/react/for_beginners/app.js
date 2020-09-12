@@ -1,5 +1,5 @@
 
 ReactDOM.render(
-    React.createElement('p', null, 'This page demonstrates using React with no build tooling.'),
+    <p>This page demonstrates using React with no build tooling.</p>,
     document.getElementById('root')
 );
