@@ -16,19 +16,25 @@ let newsData = [
 
 let News = React.createClass({
     render: function() {
-        var latestNews = this.props.latestNews;
-        var newsTemplate = latestNews.map( function(item, index) {
-        return (
-            <div key={index}>
-                <p className="news__author">{item.author}:</p>
-                <p className="news__text">{item.text}</p>
-            </div>
-            )
-        })
+        let latestNews = this.props.latestNews;
+        let newsTemplate = <p>No news</p>;
+        let needShowNews = latestNews.length > 0
+
+        if (needShowNews) {
+            newsTemplate = latestNews.map( function(item, index) {
+                return (
+                    <div key={index}>
+                        <p className="news__author">{item.author}:</p>
+                        <p className="news__text">{item.text}</p>
+                    </div>
+                )
+            })
+        }
 
         return (
             <div className="news">
                 {newsTemplate}
+                <strong className={ needShowNews ? '': 'none' }>All news: {latestNews.length}</strong>
             </div>
         );
     }
