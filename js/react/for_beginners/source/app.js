@@ -15,6 +15,12 @@ let newsData = [
 ];
 
 let Article = React.createClass({
+    propTypes: {
+        attributes: React.PropTypes.shape({
+            author: React.PropTypes.string.isRequired,
+            text: React.PropTypes.string.isRequired
+    })
+    },
     render: function() {
         let author = this.props.attributes.author,
             text = this.props.attributes.text;
@@ -28,6 +34,9 @@ let Article = React.createClass({
 });
 
 let News = React.createClass({
+    propTypes: {
+        latestNews: React.PropTypes.array.isRequired
+    },
     render: function() {
         let latestNews = this.props.latestNews;
         let newsTemplate = <p>No news</p>;
