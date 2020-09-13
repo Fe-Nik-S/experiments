@@ -39,6 +39,9 @@ let Article = React.createClass({
             text = this.props.attributes.text,
             fullText = this.props.attributes.fullText,
             isVisible = this.state.isVisible;
+
+        console.log('Rendered: ',this);
+
         return (
             <div className="article">
                 <p className="news__author">{author}</p>
@@ -58,6 +61,14 @@ let News = React.createClass({
     propTypes: {
         latestNews: React.PropTypes.array.isRequired
     },
+    getInitialState: function() {
+        return {
+            counter: 0
+        }
+    },
+    onTotalNewsClick: function() {
+        this.setState({ counter: ++this.state.counter });
+    },
     render: function() {
         let latestNews = this.props.latestNews;
         let newsTemplate = <p>No news</p>;
@@ -76,7 +87,7 @@ let News = React.createClass({
         return (
             <div className="news">
                 {newsTemplate}
-                <strong className={'news__count ' + (needShowNews ? '': 'none') }>All news: {latestNews.length}</strong>
+                <strong onClick={this.onTotalNewsClick} className={'news__count ' + (needShowNews ? '': 'none') }>All news: {latestNews.length}</strong>
             </div>
         );
     }
@@ -92,6 +103,33 @@ let Comments = React.createClass({
     }
 });
 
+var TestInput = React.createClass({
+    getInitialState: function() {
+        return {
+            controlValue: ''
+        };
+    },
+    onChangeHandler: function(e) {
+        this.setState({controlValue: e.target.value})
+    },
+    onBtnClickHandler: function() {
+        alert(this.state.controlValue);
+    },
+    render: function() {
+        return (
+            <div>
+                <input
+                    className='test-input'
+                    value={this.state.controlValue}
+                    onChange={this.onChangeHandler}
+                    placeholder='Enter value...'
+                />
+                <button onClick={this.onBtnClickHandler}>Show alert</button>
+            </div>
+        );
+    }
+});
+
 let App = React.createClass({
     render: function() {
         return (
@@ -99,6 +137,7 @@ let App = React.createClass({
                 <p>This page demonstrates using React with no build tooling.</p>
                 <p/>
                 <h3>News:</h3>
+                <TestInput />
                 <News latestNews={newsData}/>
             </div>
         );
