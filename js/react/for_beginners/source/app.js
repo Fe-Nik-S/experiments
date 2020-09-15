@@ -104,27 +104,23 @@ let Comments = React.createClass({
 });
 
 var TestInput = React.createClass({
-    getInitialState: function() {
-        return {
-            controlValue: ''
-        };
-    },
     onChangeHandler: function(e) {
         this.setState({controlValue: e.target.value})
     },
     onBtnClickHandler: function() {
-        alert(this.state.controlValue);
+        console.log(this.refs);
+        alert(ReactDOM.findDOMNode(this.refs.customTestInput).value);
     },
     render: function() {
         return (
             <div>
                 <input
                     className='test-input'
-                    value={this.state.controlValue}
-                    onChange={this.onChangeHandler}
+                    defaultValue=''
+                    ref='customTestInput'
                     placeholder='Enter value...'
                 />
-                <button onClick={this.onBtnClickHandler}>Show alert</button>
+                <button onClick={this.onBtnClickHandler} ref='alertButton'>Show alert</button>
             </div>
         );
     }
