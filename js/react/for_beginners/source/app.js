@@ -104,6 +104,9 @@ let Comments = React.createClass({
 });
 
 var TestInput = React.createClass({
+    componentDidMount: function() { //ставим фокус в input
+        ReactDOM.findDOMNode(this.refs.customTestInput).focus();
+    },
     onChangeHandler: function(e) {
         this.setState({controlValue: e.target.value})
     },
