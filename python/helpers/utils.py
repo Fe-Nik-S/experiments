@@ -1,6 +1,7 @@
 
 import functools as ft
 import types
+import signal
 
 
 class SingletonMeta(type):
@@ -27,3 +28,32 @@ class SingletonMeta(type):
         if cls.__instance is None:
             cls.__instance = super(SingletonMeta, cls).__call__(*args, **kwargs)
         return cls.__instance
+
+
+class TimeoutError(Exception):
+    pass
+
+
+class Timeout(object):
+
+    """Context manager that allows to perform blocking operations with time limit.
+
+    Usage:
+
+    with Timeout(5):
+        time.sleep(10)
+    """
+
+    def __init__(self, wait_seconds):
+        self.wait_seconds = wait_seconds
+
+    def __enter__(self):
+        signal.signal(signal.SIGALRM, self.alarm_handler)
+        signal.alarm(self.wait_seconds)
+        return self
+
+    def __exit__(self, type, value, traceback):
+        signal.alarm(0)
+
+    def alarm_handler(self, *args):
+        raise TimeoutError("Operation took longer than expected", self.wait_seconds)
