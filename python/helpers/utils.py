@@ -2,6 +2,28 @@
 import functools as ft
 import types
 import signal
+import logging
+import argparse
+
+
+STR_TO_LOGGING = {
+    "DEBUG": logging.DEBUG,
+    "INFO": logging.INFO,
+    "WARN": logging.WARNING,
+    "WARNING": logging.WARNING,
+    "ERROR": logging.ERROR,
+    "CRITICAL": logging.CRITICAL
+}
+def log_level(logging_str):
+    """Convert string into logging level."""
+    logging_str = logging_str.upper()
+    logging_level = STR_TO_LOGGING.get(logging_str, None)
+    if not logging_level:
+        raise argparse.ArgumentTypeError(
+            "invalid choice: {} "
+            "(choose from 'DEBUG', 'INFO', 'WARN', 'ERROR', 'CRITICAL')".format(logging_str)
+        )
+    return logging_level
 
 
 class SingletonMeta(type):
