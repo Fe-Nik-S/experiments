@@ -70,6 +70,7 @@ ZBX_REQUEST_TEMPLATE = ("{\n"
                         "\t\"data\":[\n%s]\n"
                         "}")
 
+
 def send_to_zabbix(metrics, zabbix_host="", zabbix_port=10051):
     """Send set of metrics to Zabbix server."""
 
@@ -98,14 +99,15 @@ def send_to_zabbix(metrics, zabbix_host="", zabbix_port=10051):
     resp_body = zabbix.recv(resp_body_len)
     zabbix.close()
     resp = jloads(resp_body)
-    print resp
     if (resp.get("response") != "success") \
             or (resp.get("failed") != 0):
         return False
     return True
 
+
 def deep_getattr(obj, attr):
     return reduce(getattr, attr.split('.'), obj)
+
 
 class Dcm(object):
     def __init__(self, host='localhost', port=9000, trace_level=0, timeout=0):
