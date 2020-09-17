@@ -129,14 +129,44 @@ var TestInput = React.createClass({
     }
 });
 
+
+var AddNewControl = React.createClass({
+    getInitialState: function() {
+        return {
+            isDisabled: true
+        };
+    },
+    componentDidMount: function() { //ставим фокус в input
+        ReactDOM.findDOMNode(this.refs.author).focus();
+    },
+    onBtnClickHandler: function(e) {
+        e.preventDefault();
+    },
+    onCheckRuleClick: function(e) {
+        this.setState({isDisabled: !this.state.isDisabled});
+    },
+    render: function() {
+        return (
+            <form className='add cf'>
+                <input type='text' className='add__author' defaultValue='' placeholder='Your name' ref='author'/>
+                <textarea className='add__text' defaultValue='' placeholder='Description' ref='text'></textarea>
+                <label className='add__checkrule'>
+                    <input type='checkbox' defaultChecked={false} ref='checkrule' onChange={this.onCheckRuleClick}/>I am agree with rules
+                </label>
+                <button className='add__btn' onClick={this.onBtnClickHandler} ref='alert_button' disabled={this.state.isDisabled}>Show alert</button>
+            </form>
+        )
+    }
+});
+
 let App = React.createClass({
     render: function() {
         return (
             <div className="app">
                 <p>This page demonstrates using React with no build tooling.</p>
                 <p/>
+                <AddNewControl />
                 <h3>News:</h3>
-                <TestInput />
                 <News latestNews={newsData}/>
             </div>
         );
