@@ -17,6 +17,10 @@ let newsData = [
     }
 ];
 
+
+window.ee = new EventEmitter();
+
+
 let Article = React.createClass({
     propTypes: {
         attributes: React.PropTypes.shape({
@@ -57,6 +61,7 @@ let Article = React.createClass({
     }
 });
 
+
 let News = React.createClass({
     propTypes: {
         latestNews: React.PropTypes.array.isRequired
@@ -93,6 +98,7 @@ let News = React.createClass({
     }
 });
 
+
 let Comments = React.createClass({
     render: function() {
         return (
@@ -103,7 +109,8 @@ let Comments = React.createClass({
     }
 });
 
-var TestInput = React.createClass({
+
+let TestInput = React.createClass({
     componentDidMount: function() { //ставим фокус в input
         ReactDOM.findDOMNode(this.refs.customTestInput).focus();
     },
@@ -130,7 +137,7 @@ var TestInput = React.createClass({
 });
 
 
-var AddNewControl = React.createClass({
+let AddNewControl = React.createClass({
     getInitialState: function() {
         return {
             agreeNotChecked: true,
@@ -143,39 +150,62 @@ var AddNewControl = React.createClass({
     },
     onBtnClickHandler: function(e) {
         e.preventDefault();
+        let textControl = ReactDOM.findDOMNode(this.refs.text);
+
         let author = ReactDOM.findDOMNode(this.refs.author).value;
         let text = ReactDOM.findDOMNode(this.refs.text).value;
-        alert(author + '\n' + text);
+
+        let item = [{
+            author: author,
+            text: text,
+            fullText: '...'
+        }];
+        window.ee.emit('News.add', item);
+
+        textControl.value = '';
+        this.setState({descriptionIsEmpty: true});
     },
     onCheckRuleClick: function(e) {
         this.setState({agreeNotChecked: !this.state.agreeNotChecked});
     },
-    onAuthorChange: function(e) {
+    onFieldChange: function(fieldName, e) {
         let hasText = e.target.value.trim().length > 0;
-        this.setState({authorIsEmpty: !hasText})
-        },
-    onDescriptionChange: function(e) {
-        let hasText = e.target.value.trim().length > 0;
-        this.setState({descriptionIsEmpty: !hasText})
-        },
+        this.setState({['' + fieldName]: !hasText})
+    },
     render: function() {
         let agreeNotChecked = this.state.agreeNotChecked,
             authorIsEmpty = this.state.authorIsEmpty,
             descriptionIsEmpty = this.state.descriptionIsEmpty;
         return (
             <form className='add cf'>
-                <input type='text' className='add__author' defaultValue='' placeholder='Your name' ref='author' onChange={this.onAuthorChange}/>
-                <textarea className='add__text' defaultValue='' placeholder='Description' ref='text' onChange={this.onDescriptionChange}></textarea>
+                <input type='text' className='add__author' defaultValue='' placeholder='Your name' ref='author' onChange={this.onFieldChange.bind(this, 'authorIsEmpty')}/>
+                <textarea className='add__text' defaultValue='' placeholder='Description' ref='text' onChange={this.onFieldChange.bind(this, 'descriptionIsEmpty')}></textarea>
                 <label className='add__checkrule'>
                     <input type='checkbox' defaultChecked={false} ref='checkrule' onChange={this.onCheckRuleClick}/>I am agree with rules
                 </label>
-                <button className='add__btn' onClick={this.onBtnClickHandler} ref='alert_button' disabled={agreeNotChecked || authorIsEmpty || descriptionIsEmpty}>Show alert</button>
+                <button className='add__btn' onClick={this.onBtnClickHandler} ref='alert_button' disabled={agreeNotChecked || authorIsEmpty || descriptionIsEmpty}>Add news</button>
             </form>
         )
     }
 });
 
+
 let App = React.createClass({
+    getInitialState: function() {
+        return {
+            news: newsData
+        };
+    },
+    componentDidMount: function() {
+        let self = this;
+        window.ee.addListener('News.add', function(item) {
+            let nextNews = item.concat(self.state.news);
+            self.setState({news: nextNews});
+        });
+    },
+    componentWillUnmount: function() {
+        window.ee.removeListener('News.add');
+    },
     render: function() {
         return (
             <div className="app">
@@ -183,11 +213,12 @@ let App = React.createClass({
                 <p/>
                 <AddNewControl />
                 <h3>News:</h3>
-                <News latestNews={newsData}/>
+                <News latestNews={this.state.news}/>
             </div>
         );
     }
 });
+
 
 ReactDOM.render(
     <App />,
