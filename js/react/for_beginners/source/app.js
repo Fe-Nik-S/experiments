@@ -133,7 +133,9 @@ var TestInput = React.createClass({
 var AddNewControl = React.createClass({
     getInitialState: function() {
         return {
-            isDisabled: true
+            agreeNotChecked: true,
+            authorIsEmpty: true,
+            descriptionIsEmpty: true
         };
     },
     componentDidMount: function() { //ставим фокус в input
@@ -141,19 +143,33 @@ var AddNewControl = React.createClass({
     },
     onBtnClickHandler: function(e) {
         e.preventDefault();
+        let author = ReactDOM.findDOMNode(this.refs.author).value;
+        let text = ReactDOM.findDOMNode(this.refs.text).value;
+        alert(author + '\n' + text);
     },
     onCheckRuleClick: function(e) {
-        this.setState({isDisabled: !this.state.isDisabled});
+        this.setState({agreeNotChecked: !this.state.agreeNotChecked});
     },
+    onAuthorChange: function(e) {
+        let hasText = e.target.value.trim().length > 0;
+        this.setState({authorIsEmpty: !hasText})
+        },
+    onDescriptionChange: function(e) {
+        let hasText = e.target.value.trim().length > 0;
+        this.setState({descriptionIsEmpty: !hasText})
+        },
     render: function() {
+        let agreeNotChecked = this.state.agreeNotChecked,
+            authorIsEmpty = this.state.authorIsEmpty,
+            descriptionIsEmpty = this.state.descriptionIsEmpty;
         return (
             <form className='add cf'>
-                <input type='text' className='add__author' defaultValue='' placeholder='Your name' ref='author'/>
-                <textarea className='add__text' defaultValue='' placeholder='Description' ref='text'></textarea>
+                <input type='text' className='add__author' defaultValue='' placeholder='Your name' ref='author' onChange={this.onAuthorChange}/>
+                <textarea className='add__text' defaultValue='' placeholder='Description' ref='text' onChange={this.onDescriptionChange}></textarea>
                 <label className='add__checkrule'>
                     <input type='checkbox' defaultChecked={false} ref='checkrule' onChange={this.onCheckRuleClick}/>I am agree with rules
                 </label>
-                <button className='add__btn' onClick={this.onBtnClickHandler} ref='alert_button' disabled={this.state.isDisabled}>Show alert</button>
+                <button className='add__btn' onClick={this.onBtnClickHandler} ref='alert_button' disabled={agreeNotChecked || authorIsEmpty || descriptionIsEmpty}>Show alert</button>
             </form>
         )
     }
