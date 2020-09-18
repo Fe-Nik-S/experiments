@@ -16,13 +16,19 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.HotModuleReplacementPlugin()
     ],
     module: {
+        preLoaders: [{
+            test: /\.js$/,
+            loaders: ['eslint'],
+            include: [
+                path.resolve(__dirname, "src"),
+            ],
+        }],
         loaders: [
           {
-            loaders: ['babel-loader'],
+            loaders: ['react-hot', 'babel-loader'],
             include: [
               path.resolve(__dirname, "src"),
             ],
