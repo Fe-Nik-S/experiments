@@ -1,7 +1,7 @@
 {
-  "name": "react-tutorial",
+  "name": "react-tutorial-v1",
   "version": "1.0.0",
-  "description": "React Tutorial",
+  "description": "React Tutorial. v1",
   "main": "index.html",
   "scripts": {
     "start": "node server.js"
