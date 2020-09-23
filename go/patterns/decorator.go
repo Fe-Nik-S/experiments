@@ -1,26 +1,26 @@
 package main
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type someFunc func(s string)
 
 func decorate(f someFunc) someFunc {
-    return func(s string) {
-        fmt.Println("Doing something before...")
-        f(s)
-        fmt.Println("Doing something after...")
-    }
+	return func(s string) {
+		fmt.Println("Doing something before...")
+		f(s)
+		fmt.Println("Doing something after...")
+	}
 }
 
 func displayText(s string) {
-    fmt.Println(s)
+	fmt.Println(s)
 }
 
 func main() {
-    display := decorate(displayText)
-    display("Client code")
+	display := decorate(displayText)
+	display("Client code")
 }
 
 // OUTPUT

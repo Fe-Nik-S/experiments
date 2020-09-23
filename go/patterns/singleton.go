@@ -1,34 +1,34 @@
 package main
 
 import (
-    "fmt"
-    "sync"
-    "time"
+	"fmt"
+	"sync"
+	"time"
 )
 
 type Singleton struct {
-    CreatedAt time.Time
+	CreatedAt time.Time
 }
 
 var (
-    instance *Singleton
-    once sync.Once
+	instance *Singleton
+	once sync.Once
 )
 
 func GetInstance() *Singleton {
-    once.Do(func() {
-        instance = &Singleton{time.Now()}
-    })
-    return instance
+	once.Do(func() {
+		instance = &Singleton{time.Now()}
+	})
+	return instance
 }
 
 func main() {
 
-    singletonObject := GetInstance()
-    fmt.Println(singletonObject, singletonObject.CreatedAt)
+	singletonObject := GetInstance()
+	fmt.Println(singletonObject, singletonObject.CreatedAt)
 
-    singletonObject = GetInstance()
-    fmt.Println(singletonObject, singletonObject.CreatedAt)
+	singletonObject = GetInstance()
+	fmt.Println(singletonObject, singletonObject.CreatedAt)
 }
 
 // OUTPUT
