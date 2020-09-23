@@ -4,31 +4,35 @@ import React, { PropTypes, Component } from 'react';
 
 export default class Page extends Component {
     onYearBtnClick(e) {
-        this.props.getPhotos(+e.target.innerText)
+        //console.log(e.target.innerText);
+        this.props.getPhotos(e.target.innerText);
     }
     render() {
-        const { year, photos, fetching } = this.props;
+        const { query, photos, fetching, error } = this.props;
+        const QUERIES = ['Laptop', 'Cats', 'Flowers', 'Girls', 'Rocks', 'Planets']
         return <div className='ib page' >
             <p>
-                <button className='btn' onClick={::this.onYearBtnClick}>2015</button>
-                <button className='btn' onClick={::this.onYearBtnClick}>2016</button>
-                <button className='btn' onClick={::this.onYearBtnClick}>2017</button>
-                <button className='btn' onClick={::this.onYearBtnClick}>2018</button>
-                <button className='btn' onClick={::this.onYearBtnClick}>2019</button>
-                <button className='btn' onClick={::this.onYearBtnClick}>2020</button>
+                { QUERIES.map((item,index) => <button className='btn' key={index} onClick={::this.onYearBtnClick}>{item}</button> )}
             </p>
-            <h3>{year} year</h3>
+            <h3>Query: {query}</h3>
+            { error ? <p className='error'> Error appeared during request...</p> : ''}
             {
                 fetching ?
                 <p>Loading...</p>
-                : <p>You have {photos.length} photos.</p>
+                :
+                photos.map((image_url, index) =>
+                    <div key={index} className='photo'>
+                        <p><img src={image_url} /></p>
+                    </div>
+                )
             }
         </div>
     }
 }
 
 Page.propTypes = {
-    year: PropTypes.number.isRequired,
+    query: PropTypes.string.isRequired,
     photos: PropTypes.array.isRequired,
-    getPhotos: PropTypes.func.isRequired
+    getPhotos: PropTypes.func.isRequired,
+    error: PropTypes.string.isRequired
 }

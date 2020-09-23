@@ -2,13 +2,15 @@
 import {
     ACTION_SET_YEAR,
     GET_PHOTOS_SUCCESS,
-    GET_PHOTOS_REQUEST
+    GET_PHOTOS_REQUEST,
+    GET_PHOTOS_FAIL
 } from '../constants';
 
 const initialState = {
-    year: 2015,
+    query: 'Laptop',
     photos: [],
-    fetching: false
+    fetching: false,
+    error: ''
 }
 
 export default function page(state = initialState, action) {
@@ -16,11 +18,14 @@ export default function page(state = initialState, action) {
     switch (action.type) {
 
         case ACTION_SET_YEAR:
-            return { ...state, year: action.payload }
+            return { ...state, query: action.payload }
+
         case GET_PHOTOS_REQUEST:
-            return { ...state, year: action.payload, fetching: true }
+            return { ...state, query: action.payload, fetching: true, error: '' }
         case GET_PHOTOS_SUCCESS:
-            return { ...state, photos: action.payload, fetching: false }
+            return { ...state, photos: action.payload, fetching: false, error: '' }
+        case GET_PHOTOS_FAIL:
+            return { ...state, error: action.payload.message, fetching: false }
 
         default:
             return state

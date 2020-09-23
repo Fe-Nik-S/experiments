@@ -15,7 +15,7 @@ class App extends Component {
         return <div className='row'>
             <p>Redux tutorial</p>
             <User name={user.name} />
-            <Page photos={page.photos} year={page.year} getPhotos={getPhotos} fetching={page.fetching}/>
+            <Page photos={page.photos} query={page.query} getPhotos={getPhotos} fetching={page.fetching}/>
         </div>
     }
 }
