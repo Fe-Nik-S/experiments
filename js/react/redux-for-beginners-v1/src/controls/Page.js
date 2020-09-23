@@ -9,7 +9,7 @@ export default class Page extends Component {
     }
     render() {
         const { query, photos, fetching, error } = this.props;
-        const QUERIES = ['Laptop', 'Cats', 'Flowers', 'Girls', 'Rocks', 'Planets']
+        const QUERIES = ['Laptop', 'Animal', 'Flowers', 'Girls', 'Rocks', 'Wind']
         return <div className='ib page' >
             <p>
                 { QUERIES.map((item,index) => <button className='btn' key={index} onClick={::this.onYearBtnClick}>{item}</button> )}
@@ -33,6 +33,5 @@ export default class Page extends Component {
 Page.propTypes = {
     query: PropTypes.string.isRequired,
     photos: PropTypes.array.isRequired,
-    getPhotos: PropTypes.func.isRequired,
-    error: PropTypes.string.isRequired
+    getPhotos: PropTypes.func.isRequired
 }

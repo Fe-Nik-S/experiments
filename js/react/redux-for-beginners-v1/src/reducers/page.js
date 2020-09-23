@@ -7,7 +7,7 @@ import {
 } from '../constants';
 
 const initialState = {
-    query: 'Laptop',
+    query: '',
     photos: [],
     fetching: false,
     error: ''
