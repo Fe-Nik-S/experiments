@@ -10,12 +10,12 @@ import * as pageActions from '../actions/PageActions';
 class App extends Component {
     render() {
         const { user, page } = this.props
-        const { setYear } = this.props.pageActions
+        const { getPhotos } = this.props.pageActions
 
-        return <div>
+        return <div className='row'>
             <p>Redux tutorial</p>
             <User name={user.name} />
-            <Page photos={page.photos} year={page.year} setYear={setYear}/>
+            <Page photos={page.photos} query={page.query} getPhotos={getPhotos} fetching={page.fetching}/>
         </div>
     }
 }
