@@ -1,27 +1,27 @@
 package main
 
 import (
-    "fmt"
+	"fmt"
 )
 
 func main(){
-    numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-    sum := 0
-    for index, val := range numbers {
-        sum += val
-        fmt.Print("[", index, ",", val, "] ")
-    }
-    fmt.Println("\nSum is :: ", sum)
+	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	sum := 0
+	for index, val := range numbers {
+		sum += val
+		fmt.Print("[", index, ",", val, "] ")
+	}
+	fmt.Println("\nSum is :: ", sum)
 
-    keyValues := map[int]string{1: "A", 2: "B", 3: "C", 4: "D"}
-        for k, v := range keyValues {
-        fmt.Println(k, " -> ", v)
-    }
+	keyValues := map[int]string{1: "A", 2: "B", 3: "C", 4: "D"}
+		for k, v := range keyValues {
+		fmt.Println(k, " -> ", v)
+	}
 
-    str := "Some text!"
-    for index, c := range str {
-        fmt.Print("[", index, ",", string(c), "] ")
-    }
+	str := "Some text!"
+	for index, c := range str {
+		fmt.Print("[", index, ",", string(c), "] ")
+	}
 }
 
 /*

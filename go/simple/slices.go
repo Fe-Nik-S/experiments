@@ -3,67 +3,67 @@ package main
 import "fmt"
 
 var (
-    outputTemplate = "Len: %d; Cap: %d; Address: %p"
+	outputTemplate = "Len: %d; Cap: %d; Address: %p"
 )
 
 type MyArray []int
 
 func (array MyArray) ToString() {
-    var arrayInfo = fmt.Sprintf(outputTemplate, len(array), cap(array), &array)
-    fmt.Print(arrayInfo)
-    fmt.Print("; Data: ")
-    for key, val := range array {
-        fmt.Printf("[%d|%d] ", key, val)
-    }
-    fmt.Print("\n")
+	var arrayInfo = fmt.Sprintf(outputTemplate, len(array), cap(array), &array)
+	fmt.Print(arrayInfo)
+	fmt.Print("; Data: ")
+	for key, val := range array {
+		fmt.Printf("[%d|%d] ", key, val)
+	}
+	fmt.Print("\n")
 }
 
 func (array *MyArray) ToStringByP() {
-    var arrayInfo = fmt.Sprintf(outputTemplate, len(*array), cap(*array), array)
-    fmt.Print(arrayInfo)
-    fmt.Print("; Data: ")
-    for key, val := range *array {
-        fmt.Printf("[%d|%d] ", key, val)
-    }
-    fmt.Print("\n")
+	var arrayInfo = fmt.Sprintf(outputTemplate, len(*array), cap(*array), array)
+	fmt.Print(arrayInfo)
+	fmt.Print("; Data: ")
+	for key, val := range *array {
+		fmt.Printf("[%d|%d] ", key, val)
+	}
+	fmt.Print("\n")
 }
 
 func main() {
-    fmt.Println("Init a base slice:")
-    data := MyArray{9, 1, 8, 2, 7, 3, 6, 4, 5}
-    var arrayInfo = fmt.Sprintf(outputTemplate, len(data), cap(data), &data)
-    fmt.Println(arrayInfo)
-    data.ToString()
-    data.ToStringByP()
+	fmt.Println("Init a base slice:")
+	data := MyArray{9, 1, 8, 2, 7, 3, 6, 4, 5}
+	var arrayInfo = fmt.Sprintf(outputTemplate, len(data), cap(data), &data)
+	fmt.Println(arrayInfo)
+	data.ToString()
+	data.ToStringByP()
 
-    fmt.Println("\nAppend new elements to data:")
-    data1 := append(data, 15, 20)
-    data1.ToString()
-    data.ToString()
+	fmt.Println("\nAppend new elements to data:")
+	data1 := append(data, 15, 20)
+	data1.ToString()
+	data.ToString()
 
-    fmt.Println("\nMade new empty slice:")
-    data2 := make(MyArray, 0, 5)
-    data2.ToString()
+	fmt.Println("\nMade new empty slice:")
+	data2 := make(MyArray, 0, 5)
+	data2.ToString()
 
-    fmt.Println("\nAppend new elements to data2:")
-    data2 = append(data2, 0)
-    data2.ToString()
+	fmt.Println("\nAppend new elements to data2:")
+	data2 = append(data2, 0)
+	data2.ToString()
 
-    fmt.Println("\nAppend new elements to data2->data3:")
-    data3 := append(data2, 2, 4, 6)
-    data3.ToString()
+	fmt.Println("\nAppend new elements to data2->data3:")
+	data3 := append(data2, 2, 4, 6)
+	data3.ToString()
 
-    fmt.Println("\nAppend new elements to data2->data4:")
-    data4 := append(data2, []int{1, 2, 3, 4, 5}...)
-    data4.ToString()
+	fmt.Println("\nAppend new elements to data2->data4:")
+	data4 := append(data2, []int{1, 2, 3, 4, 5}...)
+	data4.ToString()
 
-    fmt.Println("\nCopy elements to data4:")
-    copy(data4, []int{100, 200, -1, 300})
-    data4.ToString()
+	fmt.Println("\nCopy elements to data4:")
+	copy(data4, []int{100, 200, -1, 300})
+	data4.ToString()
 
-    fmt.Println("\nCopy elements to data4 in custom position:")
-    copy(data4[1:], []int{0, 100, -1, 200, -2, 300, -3})
-    data4.ToString()
+	fmt.Println("\nCopy elements to data4 in custom position:")
+	copy(data4[1:], []int{0, 100, -1, 200, -2, 300, -3})
+	data4.ToString()
 }
 
 
