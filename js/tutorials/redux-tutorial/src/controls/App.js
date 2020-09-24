@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-import User from '../controls/User';
-import Page from '../controls/Page';
+import User from './User';
+import Page from './Page';
 import * as pageActions from '../actions/PageActions';
 
 
