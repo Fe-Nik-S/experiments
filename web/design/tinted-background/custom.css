@@ -1,0 +1,40 @@
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image {
+    width: 20rem;
+    height: 35rem;
+    border-radius: 8px;
+    background-size:  cover;
+
+    margin: 10px 10px;
+}
+
+.green-filter {
+    background: linear-gradient(
+        rgba(69, 252, 228, 0.5),
+        rgba(69, 252, 228, 0.5)
+    ),
+    url('./image.jpg');
+}
+
+.blue-filter {
+    background: linear-gradient(
+        rgba(70, 5, 255, 0.5),
+        rgba(70, 5, 255, 0.5)
+    ),
+    url('./image.jpg');
+}
+
+.pink-filter {
+    background: linear-gradient(
+        rgba(233, 30, 99, 0.5),
+        rgba(233, 30, 99, 0.5)
+    ),
+    url('./image.jpg');
+}
+
