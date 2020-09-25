@@ -1,0 +1,50 @@
+
+* {
+    margin: 0;
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+}
+
+.outer-wrapper {
+    width: 100vh;
+    height: 100vw;
+    transform: rotate(-90deg) translateX(-100vh);
+    transform-origin: top left;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: absolute;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 400vw;
+    transform: rotate(90deg) translateY(-100vh);
+    transform-origin: top left;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.one {
+    background: #a43cff;
+}
+
+.two {
+    background: #2cfaa8;
+}
+
+.three {
+    background: #116feb;
+}
+
+.four {
+    background: #f80053;
+}
