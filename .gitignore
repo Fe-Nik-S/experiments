@@ -3,3 +3,5 @@ main
 node_modules
 
 example.*
+
+.ipynb_checkpoints
