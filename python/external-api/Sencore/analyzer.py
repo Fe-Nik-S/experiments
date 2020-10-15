@@ -41,6 +41,11 @@ from lib.const import SENCORE_ATTRS_ENUM, SENCORE_DATA_PATH, SENCORE_URLS_ENUM, 
     TEMP_PATH, AUTODISCOVERY_SEND_PERIOD, AUTODISCOVERY_SEND_TIMESTAMP
 
 
+HOSTS = [
+
+]
+
+
 class Sencore(object):
     def __init__(self, address, name, lock, reference_base):
         self.logger = logging.getLogger(name)
@@ -367,26 +372,19 @@ class Sencore(object):
 
         return self.name, self.data
 
+
 def sencore_start(args):
     sencore = Sencore(args[0], args[1], args[2], args[3])
     return sencore.get_all()
 
+
 def get_hosts():
-    hosts = [        
-    ]
+    return {host_info[0]: dict(id=host_info[0], host=host_info[1]) for host_info in HOSTS}
 
-    analyzers = {}
-
-    for host in hosts:
-        analyzers[host[0]] = {
-            'ip': host[0],
-            'host': host[1]
-        }
-
-    return analyzers
 
 def jdumps(o):
     return json.dumps(o, ensure_ascii=False)
+
 
 def write_metrics2file(metrics, file):
     with open(file, 'wb') as send_data:
