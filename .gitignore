@@ -1,7 +1,9 @@
 .idea
 main
 node_modules
+env
 
+*.log
 example.*
 
 .ipynb_checkpoints
