@@ -8,5 +8,5 @@ install_requirements:
 install_external_libs:
 	sudo apt install python3-venv
 
-run:
-	python3 main.py
+run_server:
+	python3 testproject/manage.py runserver

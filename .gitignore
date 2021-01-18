@@ -3,7 +3,11 @@ main
 node_modules
 env
 
+*.pyc
+
 *.log
 example.*
+
+*.sqlite3
 
 .ipynb_checkpoints
